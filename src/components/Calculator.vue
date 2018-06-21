@@ -1,12 +1,10 @@
 <template>
   <div class="calc-wrapper">
     <div class="calc" v-bind:class="{ is_calced: isCalced }">
-      <div class="calc-page intro">
-        <img src="../assets/logo.png">
-        <div>
-          this is the intro page
-        </div>
-      </div>
+
+      <intro> </intro>
+      <main-page></main-page>
+      <!--
       <div class="calc-page main">
         <div class="wrapper">
           <div class="content" style="width: 80%">
@@ -79,6 +77,7 @@
           </div>
         </div>
       </div>
+      -->
 
       <transition name="slide-from-right" mode="in-out">
         <div class="calc-page monthly-cost" v-if="showMonthlyPage">
@@ -205,6 +204,8 @@ import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import VueSlideBar from 'vue-slide-bar'
 import { SweetModal, SweetModalTab } from 'sweet-modal-vue'
+import Intro from './Intro.vue'
+import MainPage from './MainPage.vue'
 
 
 export default {
@@ -213,7 +214,9 @@ export default {
     Treeselect, 
     VueSlideBar, 
     SweetModal, 
-    SweetModalTab
+    SweetModalTab,
+    Intro,
+    MainPage
   },
 
   data () {
