@@ -3,7 +3,10 @@
     <div class="calc" v-bind:class="{ is_calced: isCalced }">
 
       <intro> </intro>
-      <main-page></main-page>
+      <main-page
+         v-on:monthly-clicked="showMonthly"
+         v-on:onetime-clicked="showOneTimeCost"
+        ></main-page>
       <!--
       <div class="calc-page main">
         <div class="wrapper">
@@ -80,32 +83,31 @@
       -->
 
       <transition name="slide-from-right" mode="in-out">
+        <div class="calc-page monthly-cost" v-if="isShowingMonthly">
+          monthly page
+        </div>
+          
+        <!--
         <div class="calc-page monthly-cost" v-if="showMonthlyPage">
-          <!-- start of bar-->
           <div class="calc__bar">
-            <a class="left" href="#" @click="showMonthlyPage = false">
+            <a class="left" href="#" @click="isShowingMonthly = false">
               <i class="back"></i>
             </a>
             <span>每月支出</span>
             <a class="right" href="#">确认</a>
           </div>
-          <!-- end of bar-->
 
-          <!-- start of wrapper-->
           <div class="wrapper">
             <div class="mid">
               <div class="t1">
                 已选择....
               </div>
 
-              <!-- start of t2-->
               <div class="t2">
                 每月办公室支出明细
                 <a href="#" @click="showDetailModal">!</a>
               </div>
-              <!-- end of t2-->
 
-              <!-- start of form-->
               <div class="calc-form">
                 <form class="form-horizonal">
                   <div class="form-group form-item">
@@ -150,18 +152,16 @@
                   </div>
                 </form>
               </div>
-              <!-- end of form-->
             </div>
-            <!-- end of mid-->
           </div>
-          <!-- end of wrapper-->
 
         </div>
+        -->
 
 
 
 
-        <div class="calc-page pre-cost" v-if="showPreCost">
+        <div class="calc-page pre-cost" v-if="isShowingOneTime">
           This is the pre cost page
           <div>
             <button class="btn btn-primary" @click="showPreCost =
@@ -221,6 +221,8 @@ export default {
 
   data () {
     return {
+      isShowingMonthly: false,
+      isShowingOneTime: false,
       showMonthlyPage: false,
       showPreCost: false,
       numMember: 0,
@@ -265,6 +267,16 @@ export default {
     }
   },
   methods: {
+    showMonthly() {
+      console.log('going to show monthly');
+      this.isShowingMonthly = true;
+      console.log('isShowingMonthly: ', this.isShowingMonthly);
+    },
+    showOneTimeCost() {
+      console.log('going to show one time');
+      this.isShowingOneTime = true;
+    },
+
     calculate: function() {
       this.isCalced = !this.isCalced;
     },

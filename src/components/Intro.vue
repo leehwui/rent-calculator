@@ -55,6 +55,15 @@ export default {
     left: 50%;
     transform: translate(-50%,-50%)
   }
+
+  .calc-img  {
+    margin-bottom: 25px;
+  }
+
+  .desc h1, h5 {
+    margin-bottom: 25px;
+  }
 }
+
 
 </style>
