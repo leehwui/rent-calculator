@@ -316,6 +316,10 @@ export default {
   display: none;
 }
 
+.result {
+  left: 100% !important;
+}
+
 .calc-page {
   position: absolute;
   width: 100%;
