@@ -216,7 +216,7 @@ export default {
     SweetModal, 
     SweetModalTab,
     Intro,
-    MainPage
+    MainPage,
   },
 
   data () {
@@ -454,6 +454,9 @@ a, a:link, a:hover, a:active, a:visited {
   display: inline-block;
   margin-left: 10px;
   font-size: 12px;
+}
+.result {
+  left: 100%
 }
 
 @media screen and (min-width: 999px) {

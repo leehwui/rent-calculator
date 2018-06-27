@@ -2,6 +2,31 @@
   <div class="main-page">
     <div class="mp-container">
       <form class="form">
+        <calculator-cell 
+          label="input cell" 
+          type="input" 
+          @val-updated="foo">
+        </calculator-cell>
+
+        <calculator-cell
+          label="Selectable Cell"
+          type="expandable"
+          placeholder="请输入"
+          :isUpdated="isUpdated"
+          >
+        </calculator-cell>
+
+        <calculator-cell
+          label="Slider"
+          type='slider'
+          @val-updated="bar">
+        </calculator-cell>
+
+        <calculator-cell
+          label="area cell"
+          placeholder="请选择区域"
+          type="area">
+        </calculator-cell>
         <div class="form-group form-group-lg row">
           <label class="col-sm-4 col-form-label" for="">办公室所在区域</label>
           <div class="col-sm-6 form-input">
@@ -47,13 +72,7 @@
           </div>
         </div>
 
-        <div class="form-group form-group-lg row">
-          <label class="col-sm-4 col-form-label" for="monthlyrent">monthly rent</label>
-          <div class="col-sm-6">
-            <input class="form-control" type="tel" id="monthlyrent">
-          </div>
-        </div>
-        
+        <button @click="changeState">change state</button>
       </form>
     </div>
   </div>
@@ -62,15 +81,18 @@
 
 import Treeselect from '@riophae/vue-treeselect'
 import VueSlideBar from 'vue-slide-bar'
+import CalculatorCell from './CalculatorCell.vue'
 
 export default {
   name: 'MainPage',
   components: {
     Treeselect, 
     VueSlideBar, 
+    CalculatorCell,
   },
   data() {
     return {
+      isUpdated: false,
       numMember: 0,
       area: 0,
       locations: [
@@ -107,6 +129,16 @@ export default {
   },
 
   methods: {
+    bar() {
+    
+    },
+    changeState() {
+      this.isUpdated = !this.isUpdated;
+    },
+
+    foo(val) {
+      console.log('val changed to: ', val);
+    },
     emitMonthly: function() {
       this.$emit('monthly-clicked');
     },
