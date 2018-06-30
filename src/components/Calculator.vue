@@ -4,163 +4,25 @@
 
       <intro> </intro>
       <main-page
-         v-on:monthly-clicked="showMonthly"
-         v-on:onetime-clicked="showOneTimeCost"
+         @monthly-clicked="showMonthly"
+         @onetime-clicked="showOneTimeCost"
+         @location-updated="updateLocation"
+         @members-updated="updateMembers"
+         @area-updated="updateArea"
+
         ></main-page>
-      <!--
-      <div class="calc-page main">
-        <div class="wrapper">
-          <div class="content" style="width: 80%">
-            <div class="calc-form">
-              <form class="form-horizontal">
-                <div class="form-group form-item">
-                  <label class="col-sm-4 control-label" for="">办公室所在区域</label>
-                  <div class="col-sm-6 form-input">
-                    <treeselect v-model="location" :multiple="false"
-                      :disable-branch-nodes="true"
-                      :options="locations" 
-                      placeholder="请选择"/>
-                  </div>
-                </div>
-                <div class="form-group form-item">
-                  <label for="member" class="col-sm-4 control-label">团队人数 </label>
-                  <div class="col-sm-6">
-                    <input class="form-control" v-model="numMember" type="text" id="member"
-                    placeholder="请输入">
-                  </div>
-                </div>
-
-                <div v-if="numMember > 0" class="form-group form-item">
-                  <label for="member" class="col-sm-4
-                    control-label">办公室面积(平方米)</label>
-                  <div class="col-sm-6">
-                    <input class="form-control" v-model="area" type="text" id="member" placeholder="">
-                    <VueSlideBar v-model="area" />
-                  </div>
-                </div>
-
-                <div class="form-group form-item">
-                  <label for="member" class="col-sm-4 control-label">每月支出</label>
-                  <div class="col-sm-6 input-container" @click="showMonthlyPage = true">
-                    <input class="form-control expendable" type="text" id="member"
-                    placeholder="租金物业费等" readonly="readonly">
-                    <i class="fa fa-chevron-right"></i>
-                  </div>
-                </div>
-
-                <div class="form-group form-item">
-                  <label for="member" class="col-sm-4 control-label">前期支出</label>
-                  <div class="col-sm-6 input-container">
-                    <input class="form-control expendable" type="text" id="member" 
-                          @click="showPreCost = true"
-                    placeholder="装修家具等" readonly="readonly">
-                    <i class="fa fa-chevron-right"></i>
-                  </div>
-                </div>
-
-                <div class="form-group form-item">
-                  <label class="col-sm-4 control-label" for="">租赁时长</label>
-                  <div class="col-sm-6">
-                    <select class="form-control" id="" name="">
-                      <option value="">请选择</option>
-                      <option value="">6个月</option>
-                      <option value="">1年</option>
-                      <option value="">2年</option>
-                      <option value="">3年</option>
-                      <option value="">4年</option>
-                    </select>
-                  </div>
-                </div>
-
-              </form>
-            </div>
-            <div class="btm">
-              <button class="btn btn-primary btn-lg" @click="calculate">Calculate</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      -->
 
       <transition name="slide-from-right" mode="in-out">
-        <div class="calc-page monthly-cost" v-if="isShowingMonthly">
-          monthly page
-        </div>
+        
+        <monthly-cost-page
+          v-if="isShowingMonthly"
+          :user-input="userInput"
+          @back-btn-clicked="hidePage('monthly-cost')"
+          >
+        
+        </monthly-cost-page>
+
           
-        <!--
-        <div class="calc-page monthly-cost" v-if="showMonthlyPage">
-          <div class="calc__bar">
-            <a class="left" href="#" @click="isShowingMonthly = false">
-              <i class="back"></i>
-            </a>
-            <span>每月支出</span>
-            <a class="right" href="#">确认</a>
-          </div>
-
-          <div class="wrapper">
-            <div class="mid">
-              <div class="t1">
-                已选择....
-              </div>
-
-              <div class="t2">
-                每月办公室支出明细
-                <a href="#" @click="showDetailModal">!</a>
-              </div>
-
-              <div class="calc-form">
-                <form class="form-horizonal">
-                  <div class="form-group form-item">
-                    <label for="" class="col-sm-4 control-label">月租金 </label>
-                    <div class="col-sm-6">
-                      <input class="form-control" v-model="rent" type="tel"
-                                                                 id="rent"
-                      placeholder="请输入">
-                    </div>
-                  </div>
-                  <div class="form-group form-item">
-                    <label for="" class="col-sm-4 control-label">物业费</label>
-                    <div class="col-sm-6">
-                      <input class="form-control" v-model="service" type="tel"
-                                                                 id="service"
-                      placeholder="请输入">
-                    </div>
-                  </div>
-                  <div class="form-group form-item">
-                    <label for="" class="col-sm-4 control-label">宽带费 </label>
-                    <div class="col-sm-6">
-                      <input class="form-control" v-model="internet" type="tel"
-                                                                 id="internet"
-                      placeholder="请输入">
-                    </div>
-                  </div>
-                  <div class="form-group form-item">
-                    <label for="" class="col-sm-4 control-label">水电费 </label>
-                    <div class="col-sm-6">
-                      <input class="form-control" v-model="electricity" type="tel"
-                                                                 id="electricity"
-                      placeholder="请输入">
-                    </div>
-                  </div>
-                  <div class="form-group form-item">
-                    <label for="" class="col-sm-4 control-label">保洁费 </label>
-                    <div class="col-sm-6">
-                      <input class="form-control" v-model="cleaning" type="tel"
-                                                                 id="cleaning"
-                      placeholder="请输入">
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        -->
-
-
-
-
         <div class="calc-page pre-cost" v-if="isShowingOneTime">
           This is the pre cost page
           <div>
@@ -206,6 +68,7 @@ import VueSlideBar from 'vue-slide-bar'
 import { SweetModal, SweetModalTab } from 'sweet-modal-vue'
 import Intro from './Intro.vue'
 import MainPage from './MainPage.vue'
+import MonthlyCostPage from './MonthlyCost.vue'
 
 
 export default {
@@ -217,6 +80,8 @@ export default {
     SweetModalTab,
     Intro,
     MainPage,
+    MonthlyCostPage,
+
   },
 
   data () {
@@ -257,7 +122,7 @@ export default {
       ], 
       location: null,
       isCalced: false,
-      member: 0,
+      members: 0,
       monthlyCost: 0,
       preCost: 0,
       term: 0,
@@ -266,7 +131,64 @@ export default {
       
     }
   },
+
+  computed: {
+    userInput: function() {
+      var districtStr = '';
+      var memberStr = '';
+      var areaStr = '';
+      var str = '已选择: ';
+
+      if (this.location !== null) {
+        for(let city of this.locations) {
+          if (this.location.city == city.id) {
+            for(let district of city.children) {
+              if (this.location.district == district.id)
+                districtStr = district.label + '区 ';
+            }
+          }
+        }
+      }
+      if (this.members > 0 )  {
+        var memberStr = this.members + '人团队 ';
+      }
+      if (this.area > 0) {
+        var areaStr = this.area + '平方米 ';
+      }
+
+      if (districtStr.length > 0) {
+        str += districtStr;
+      } 
+      if(memberStr.length > 0) {
+        str +=  memberStr;
+      }
+      if(areaStr.length > 0) {
+        str += areaStr;
+      }
+
+      return str;
+    }
+  },
+
   methods: {
+    updateArea($e) {
+      console.log($e);
+      this.area = $e;
+    },
+    updateLocation($e) {
+      console.log($e);
+      this.location = $e;
+    },
+    updateMembers($e) {
+      this.members = $e;
+    },
+    hidePage(currentPage) {
+      if (currentPage == 'monthly-cost') {
+        this.isShowingMonthly = false;
+      } else if ( currentPage == 'one-time-cost') {
+        this.isShowingOneTime = false;
+      }
+    },
     showMonthly() {
       console.log('going to show monthly');
       this.isShowingMonthly = true;

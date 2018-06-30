@@ -2,75 +2,38 @@
   <div class="main-page">
     <div class="mp-container">
       <form class="form">
+        <calculator-cell
+          label="办公室所在区域"
+          placeholder="请选择区域"
+          type="district-picker"
+          :locations="locations"
+          v-on:val-updated="emitLocationUpdated"
+          >
+        </calculator-cell>
+
         <calculator-cell 
-          label="input cell" 
+          label="团队人数" 
           type="input" 
-          @val-updated="foo">
+          @val-updated="emitMemebersUpdated">
         </calculator-cell>
 
         <calculator-cell
-          label="Selectable Cell"
+          v-if="location !== null && teamMembers !== null"
+          label="办公面积"
+          type='slider'
+          @val-updated="emitAreaUpdated">
+        </calculator-cell>
+
+        <calculator-cell
+          label="每月支出"
           type="expandable"
           placeholder="请输入"
+          @control-clicked="emitMonthlyClickedEvent"
           :isUpdated="isUpdated"
           >
         </calculator-cell>
 
-        <calculator-cell
-          label="Slider"
-          type='slider'
-          @val-updated="bar">
-        </calculator-cell>
 
-        <calculator-cell
-          label="area cell"
-          placeholder="请选择区域"
-          type="area">
-        </calculator-cell>
-        <div class="form-group form-group-lg row">
-          <label class="col-sm-4 col-form-label" for="">办公室所在区域</label>
-          <div class="col-sm-6 form-input">
-            <treeselect v-model="location" :multiple="false"
-              :disable-branch-nodes="true"
-              :options="locations" 
-              placeholder="请选择"/>
-          </div>
-        </div>
-
-        <div class="form-group form-group-lg row">
-          <label for="member" class="col-sm-4 col-form-label">团队人数 </label>
-          <div class="col-sm-6">
-            <input class="form-control" v-model="numMember" type="tel" id="member"
-            placeholder="请输入">
-          </div>
-        </div>
-
-        <div v-if="numMember > 0" class="form-group form-group-lg row">
-          <label for="area" class="col-sm-4 col-form-label">办公室面积(平方米)</label>
-          <div class="col-sm-6">
-            <input class="form-control" v-model="area" type="tel" id="area" placeholder="">
-            <VueSlideBar v-model="area" />
-          </div>
-        </div>
-
-
-        <div class="form-group form-group-lg row">
-          <label for="monthlycost" class="col-sm-4 col-form-label">每月支出</label>
-          <div class="col-sm-6 input-container" @click="emitMonthly">
-            <input class="form-control expendable" type="text" id="monthlycost"
-            placeholder="租金物业费等" readonly="readonly">
-            <i class="fa fa-chevron-right"></i>
-          </div>
-        </div>
-
-        <div class="form-group form-group-lg row">
-          <label for="onetimecost" class="col-sm-4 col-form-label">前期支出</label>
-          <div class="col-sm-6 input-container" @click="emitOneTime">
-            <input class="form-control expendable" type="text" id="ontimecost" 
-            placeholder="装修家具等" readonly="readonly">
-            <i class="fa fa-chevron-right"></i>
-          </div>
-        </div>
 
         <button @click="changeState">change state</button>
       </form>
@@ -93,7 +56,7 @@ export default {
   data() {
     return {
       isUpdated: false,
-      numMember: 0,
+      teamMembers: null,
       area: 0,
       locations: [
         {
@@ -101,36 +64,80 @@ export default {
           label: '青岛',
           children: [
             {
-              'id' : 'shinan',
-              'label': '市南'
+              id: 'shinan',
+              label: '市南',
             },
             {
-              'id' : 'shibei',
-              'label': '市北',
+              id: 'shibei',
+              label: '市北',
             },
             {
-              'id': 'laoshan',
-              'label': '崂山',
+              id: 'sifang',
+              label: '四方',
             },
             {
-              'id': 'huangdao',
-              'label': '黄岛',
-            },
-            {
-              'id': 'licang',
-              'label': '李沧',
+              id: 'licang',
+              label: '李沧',
             }
-          ]
+          ],
+        },
+        {
+          id:'jinan',
+          label: '济南',
+          children: [
+            {
+              id: 'damahou',
+              label: '大马猴',
+            },
+            {
+              id: 'choulaomian',
+              label: '臭老黾',
+            },
+            {
+              id: 'xinlaide',
+              label: '新来的',
+            },
+          ] 
         }
-      ], 
+      ],
       location: null,
 
     }
   },
 
   methods: {
+    emitAreaUpdated($e) {
+      this.$emit('area-updated', $e);
+    },
+
+    emitLocationUpdated($e) {
+      this.location = $e;
+      this.$emit('location-updated', $e);
+    },
+
+    emitMemebersUpdated($e) {
+      this.teamMembers = $e;
+      console.log($e);
+      this.$emit('members-updated', $e);
+    },
+
+    emitMonthlyClickedEvent() {
+      this.$emit('monthly-clicked');
+    },
+    navigateToMonthlyCost() {
+      console.log("naviagting to monthly cost page....");
+    },
     bar() {
     
+    },
+    updateTeamMembers($e) {
+      this.teamMembers = $e;
+      console.log(this.teamMembers);
+    },
+
+    updateLoaction($e) {
+      console.log($e);
+      this.location = $e;
     },
     changeState() {
       this.isUpdated = !this.isUpdated;

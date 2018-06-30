@@ -34,6 +34,20 @@ export default {
     overflow: visible;
   }
 
+  .intro::before {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    margin-top: -8px;
+    transform: rotate(45deg);
+    z-index: 2;
+  }
+
   .logo {
     position: absolute;
     top: 20px;

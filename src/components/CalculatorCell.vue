@@ -14,7 +14,7 @@
   <div class="c-cell c-cell-expandable" v-bind:class="{ updated: isUpdated}"
     v-else-if="type=='expandable'">
     <label class="c-cell-label" for="">{{ label }}</label>
-    <div class="c-cell-control">
+    <div class="c-cell-control" @click="emitClickEvent">
       <div class="c-cell-text-wrapper">
         <span class="ph">
           {{ placeholder }}
@@ -35,6 +35,7 @@
         <vue-slider ref="slider" 
           v-model="val" 
           tooltip="false"
+          @callback="foo"
           width="auto">
         </vue-slider>
       </div>
@@ -42,11 +43,13 @@
   </div>
 
   <!-- cell for area selector -->
-  <div class="c-cell c-cell-expandable" v-else-if="type=='area'">
+  <div class="c-cell c-cell-expandable c-cell-dist-picker"
+    v-else-if="type=='district-picker'">
     <label class="c-cell-label" for=""> {{ label }} </label>
     <div class="c-cell-control">
-      <district-picker>
-      
+      <district-picker 
+        :options="locations"
+        v-on:district-set="updateValue"> 
       </district-picker>
     </div>
   </div>
@@ -70,6 +73,7 @@ export default {
     type: String,
     placeholder: String,
     isUpdated: Boolean,
+    locations: Array,
   },
 
   data() {
@@ -79,9 +83,22 @@ export default {
   },
 
   methods: {
+    foo($e) {
+      this.$emit('val-updated', $e);
+    },
+
+    emitClickEvent() {
+      this.$emit('control-clicked');
+    },
+
     updateValue($event) {
-      this.$emit('val-updated', $event.target.value);
-    }
+      if (this.type == 'district-picker') {
+        var data = $event;
+      } else {
+        var data = $event.target.value;
+      }
+      this.$emit('val-updated', data);
+    },
   }
 }
 
@@ -135,6 +152,13 @@ export default {
 .c-cell-control {
   padding: 0;
 }
+.c-cell.c-cell-expandable .c-cell-control {
+  padding-right: 20px;
+}
+
+.c-cell.c-cell-expandable.c-cell-dist-picker  .c-cell-control {
+  padding-right: 0px;
+}
 
 .c-cell-control:hover {
   background: #fff;
@@ -176,6 +200,23 @@ export default {
 
 .area-text-wrapper-lg {
   display: none;
+}
+
+.dist-picker-lg {
+  display: none;
+}
+
+.dist-picker-sm {
+  display: block;
+}
+
+.dis-picker-bar {
+
+}
+
+
+.btn-concel {
+
 }
 
 select,input {
@@ -248,6 +289,13 @@ select,input {
 
   .area-text-wrapper-lg {
     display: block;
+  }
+
+  .dist-picker-lg {
+    display: block;
+  }
+  .dist-picker-sm {
+    display: none;
   }
 }
 
