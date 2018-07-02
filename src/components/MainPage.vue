@@ -1,20 +1,34 @@
 <template>
   <div class="main-page">
     <div class="mp-container">
+      <div class="mp-header">
+        <img src="../assets/header.jpg" alt="">
+        <div class="mp-header-text-container">
+          <div class="mp-header-text">
+            <div class="mp-header-title">
+              <span>办公室成本计算器</span>
+            </div>
+            <div class="mp-header-subtitle">
+              <span class="mp-header-subtitle">你的办公成本过高吗?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <form class="form">
         <calculator-cell
           label="办公室所在区域"
           placeholder="请选择区域"
           type="district-picker"
           :locations="locations"
-          v-on:val-updated="emitLocationUpdated"
+          v-on:val-updated="updateLocation"
           >
         </calculator-cell>
 
         <calculator-cell 
           label="团队人数" 
           type="input" 
-          @val-updated="emitMemebersUpdated">
+          @val-updated="updateMembers">
         </calculator-cell>
 
         <calculator-cell
@@ -27,16 +41,34 @@
         <calculator-cell
           label="每月支出"
           type="expandable"
-          placeholder="请输入"
+          :placeholder="monthlyCost == 0 ? '请输入': monthlyCost.toString()"
+          :initialVal="monthlyCost"
           @control-clicked="emitMonthlyClickedEvent"
           :isUpdated="isUpdated"
           >
         </calculator-cell>
 
+        <calculator-cell
+          label="前期投入"
+          type="expandable"
+          :placeholder="oneTimeCost == 0 ? '请输入' : oneTimeCost.toString()"
+          :initialVal="oneTimeCost"
+          @control-clicked="emitOneTimeCostClicked"
+          :isUpdated="isUpdated"
+          >
+        </calculator-cell>
 
+        <calculator-cell
+          label="租赁时长"
+          type="select"
+          @val-updated='updateDuration' >
+        </calculator-cell>
 
-        <button @click="changeState">change state</button>
+        <div class="btn-box">
+          <a class="btn-c" href="#" :disabled="!canCalculate" @click="calculate">计算</a>
+        </div>
       </form>
+
     </div>
   </div>
 </template>
@@ -53,71 +85,63 @@ export default {
     VueSlideBar, 
     CalculatorCell,
   },
+  props: {
+    locations: Array,
+    monthlyCost: Number,
+    oneTimeCost: Number,
+  },
+
+  computed: {
+    canCalculate: function() {
+      return this.location !== null && this.teamMembers > 0 
+          && this.monthlyCost > 0 && this.oneTimeCost > 0 
+          && this.duration > 0
+    },
+  },
+
   data() {
     return {
       isUpdated: false,
       teamMembers: null,
+      duration: null,
       area: 0,
-      locations: [
-        {
-          id: 'qingdao',
-          label: '青岛',
-          children: [
-            {
-              id: 'shinan',
-              label: '市南',
-            },
-            {
-              id: 'shibei',
-              label: '市北',
-            },
-            {
-              id: 'sifang',
-              label: '四方',
-            },
-            {
-              id: 'licang',
-              label: '李沧',
-            }
-          ],
-        },
-        {
-          id:'jinan',
-          label: '济南',
-          children: [
-            {
-              id: 'damahou',
-              label: '大马猴',
-            },
-            {
-              id: 'choulaomian',
-              label: '臭老黾',
-            },
-            {
-              id: 'xinlaide',
-              label: '新来的',
-            },
-          ] 
-        }
-      ],
       location: null,
-
+      result: null,
     }
   },
 
   methods: {
+    calculate() {
+      if (! this.canCalculate) {
+        return false;
+      }
+
+      this.result = Math.ceil(this.oneTimeCost/this.duration) 
+      + this.monthlyCost;
+      this.$emit('calculated', this.result);
+
+      console.log(this.result);
+    },
+
+    emitOneTimeCostClicked() {
+      this.$emit('onetime-clicked')
+    },
     emitAreaUpdated($e) {
       this.$emit('area-updated', $e);
     },
 
-    emitLocationUpdated($e) {
+    updateDuration($e) {
+      this.duration = $e
+      this.$emit('duration-updated', this.duration)
+    },
+
+    updateLocation($e) {
       this.location = $e;
       this.$emit('location-updated', $e);
     },
 
-    emitMemebersUpdated($e) {
+    updateMembers($e) {
       this.teamMembers = $e;
-      console.log($e);
       this.$emit('members-updated', $e);
     },
 
@@ -161,6 +185,62 @@ export default {
   width: 100%
 }
 
+.mp-header {
+  position: relative;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0,.1);
+  padding-top: 31.88%;
+}
+
+.mp-header img {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.mp-header-text-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  line-height: 22px;
+}
+
+.mp-header-text {
+  color: #e9901d;
+  padding-left: 20px;
+  line-height: 1.5;
+}
+
+.mp-header-title {
+  font-size: 20px;
+}
+
+.mp-header-subtitle {
+  font-size: 12px;
+  text-align: left;
+}
+
+.btn-box {
+  padding: 30px 20px;
+}
+
+.btn-c {
+  display: block;
+  text-align: center;
+  color:#fff; 
+  height: 50px;
+  line-height: 50px;
+  border-radius: 5px;
+  background-color: #e9901d;
+  font-size: 20px;
+}
+
 @media screen and (min-width: 999px) {
   .main-page {
     position: absolute;
@@ -170,6 +250,20 @@ export default {
     left: 50%;
     background: #ffbe00; 
     z-index:10;
+  }
+
+  .main-page::before {
+    display: block;
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #ffbe00;
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    margin-top: -8px;
+    transform: rotate(45deg);
+    z-index: 2;
   }
 
   .mp-container {
@@ -184,5 +278,23 @@ export default {
   .mp-container form {
     width: 80%;
   }
+  
+  .mp-header {
+    display: none;
+  }
+
+  .btn-box {
+    padding: 0 0 0 150px;
+  }
+
+  .btn-box a[disabled] {
+    opacity: 1;
+    cursor: not-allowed;
+  }
+
+  .btn-c {
+    background: #000;
+  }
+  
 }
 </style>

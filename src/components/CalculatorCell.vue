@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <!-- cell for area selector -->
+  <!-- cell for district selector -->
   <div class="c-cell c-cell-expandable c-cell-dist-picker"
     v-else-if="type=='district-picker'">
     <label class="c-cell-label" for=""> {{ label }} </label>
@@ -51,6 +51,29 @@
         :options="locations"
         v-on:district-set="updateValue"> 
       </district-picker>
+    </div>
+  </div>
+
+  <!-- cell for dropdown -->
+  <div class="c-cell c-cell-expandable" v-else-if="type == 'select'">
+    <label for="" class="c-cell-label"> {{ label }}</label>
+    <div class="c-cell-control">
+      <select class="c-cell-select" id="" name="" v-model="val"
+        @change="updateValue">
+        <option value="" disabled selected>请选择</option>
+        <option value="3">3个月</option>
+        <option value="6">6个月</option>
+        <option value="12">1年</option>
+        <option value="24">2年</option>
+        <option value="36">3年</option>
+        <option value="48">4年</option>
+        <option value="60">5年</option>
+        <option value="72">6年</option>
+        <option value="84">7年</option>
+        <option value="96">8年</option>
+        <option value="108">9年</option>
+        <option value="120">10年</option>
+      </select>
     </div>
   </div>
 
@@ -74,6 +97,14 @@ export default {
     placeholder: String,
     isUpdated: Boolean,
     locations: Array,
+    initialVal: {type: Number, default: 0},
+  },
+
+  created() {
+    console.log(typeof this.initialVal)
+    if (this.initialVal != 0) {
+      this.val = this.initialVal
+    }
   },
 
   data() {
@@ -174,6 +205,17 @@ export default {
   color: #e9901d;
 }
 
+.c-cell-select {
+  color: #e9901d;
+  height: 50px;
+  line-height: 50px;
+  display: block;
+  width: auto;
+  direction: rtl;
+  appearance: none;
+  float: right;
+}
+
 .c-cell-text-wrapper {
   height: 50px;
   line-height: 50px;
@@ -269,6 +311,15 @@ select,input {
     padding: 10px 30px;
     text-align: left;
     border-radius: 5px;
+  }
+
+  .c-cell-select {
+    height: 50px;
+    line-height: 50px;
+    color: #2b2b2b;
+    direction: ltr;
+    padding: 0 30px;
+    width: 100%;
   }
 
   .c-cell-text-wrapper {

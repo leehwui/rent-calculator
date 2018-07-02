@@ -4,12 +4,16 @@
 
       <intro> </intro>
       <main-page
+         :locations="locations"
+         :monthlyCost="monthlyCost"
+         :oneTimeCost="oneTimeCost"
          @monthly-clicked="showMonthly"
          @onetime-clicked="showOneTimeCost"
          @location-updated="updateLocation"
          @members-updated="updateMembers"
          @area-updated="updateArea"
-
+         @duration-updated="updateDuration"
+         @calculated="showResultPage"
         ></main-page>
 
       <transition name="slide-from-right" mode="in-out">
@@ -17,46 +21,118 @@
         <monthly-cost-page
           v-if="isShowingMonthly"
           :user-input="userInput"
-          @back-btn-clicked="hidePage('monthly-cost')"
+          :area="area"
+          :location="location"
+          @back-btn-clicked="hideMonthlyCostPage"
+          @details-clicked="showMonthlyCostDetail"
           >
         
         </monthly-cost-page>
 
-          
-        <div class="calc-page pre-cost" v-if="isShowingOneTime">
-          This is the pre cost page
-          <div>
-            <button class="btn btn-primary" @click="showPreCost =
-              !showPreCost">
-              back
-            </button>
-          </div>
-        </div>
-        </transition>
 
-      <div class="calc-page result">
-        This is the Result Page
-      </div>
+        <one-time-cost 
+          v-if="isShowingOneTime"
+          :user-input="userInput"
+          :area="area"
+          :members="members"
+          @back-btn-clicked="hideOneTimeCostPage"
+          @details-clicked="showOneTimeCostDetail">
+        
+        </one-time-cost>
+      </transition>
+
+      <result-page
+        :result="costPerPersion">
+      </result-page>
+
     </div>
+      <modal name="details-monthly" 
+             :adaptive="true"
+             height="auto"
+          >
+        <div class="details-modal-title">
+          费用参考说明
+          <span class="details-modal-close-btn"
+            @click="$modal.hide('details-monthly')">
+            X
+          </span>
+        </div>
+        <div class="details-modal-body">
+          <p>
+            • 根据你定义的办公室区域及面积，系统会给出相应费用建议供参考，例:
+          </p>
+          <p>静安区，8人，100平，则相应费用为 </p>
+          <table>
+            <tbody>
+              <tr>
+                <td class="details-table-td">月租金</td>
+                <td class="details-table-td">100平*8.8元/平/天*30天＝26,400元</td>
+              </tr>
+              <tr>
+                <td class="details-table-td">物业费</td>
+                <td class="details-table-td">100平*25元/平＝2,500元</td>
+              </tr>
+              <tr>
+                <td class="details-table-td">宽带费</td>
+                <td class="details-table-td">企业宽带 50M：500元/月</td>
+              </tr>
+              <tr>
+                <td class="details-table-td">水电费</td>
+                <td class="details-table-td">100平*10元/平/月＝1,000元</td>
+              </tr>
+              <tr>
+                <td class="details-table-td">保洁费</td>
+                <td class="details-table-td">3,000元/月</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            • 你也可以点击各项栏目，并根据实际情况输入，不涉及的项目输入“0”
+          </p>
+        </div>
+      </modal>
 
-    <sweet-modal ref="detailModal" 
-                 title="费用参考"
-                 width="50%" >
-                 <ul>
-                   <li>
-                    根据你定义的办公室区域及面积，系统会给出相应费用建议供参考，例:市南区，6人，40/㎡，则相应费用为：
-                    月租金	40 ㎡ * 2.8￥/㎡/天*30天＝3360￥
-                    物业费	40 ㎡ * 6￥/㎡＝240￥
-                    宽带费	企业宽带 50M-200M：面积/100（得数取整 ）*100￥/月
-                    水电费	40㎡*8.5￥/㎡/月＝340￥
-                    耗材（垃圾袋、打印纸、墨粉硒鼓更换）40 ㎡*3.75￥/㎡/月=150￥
-                    保洁费	自行填写￥/月
-                   </li>
-                   <li>
-                    你也可以点击各项栏目，并根据实际情况输入，不涉及的项目输入“0”
-                   </li>
-                 </ul>
-    </sweet-modal>
+      <modal name="details-one-time-cost" 
+             :adaptive="true"
+             height="auto"
+          >
+        <div class="details-modal-title">
+          费用参考说明
+          <span class="details-modal-close-btn"
+            @click="$modal.hide('details-one-time-cost')">
+            X
+          </span>
+        </div>
+        <div class="details-modal-body">
+          <p>
+            • 根据你定义的办公室区域及面积，系统会给出相应费用建议供参考，例:
+          </p>
+          <p>市南区，5人，40平，则相应费用为 </p>
+          <table>
+            <tbody>
+              <tr>
+                <td class="details-table-td">装修费</td>
+                <td class="details-table-td">平均600￥/㎡*40㎡＝24000￥</td>
+              </tr>
+              <tr>
+                <td class="details-table-td">办公家具</td>
+                <td class="details-table-td">700￥/人*6人＝4200￥</td>
+              </tr>
+              <tr>
+                <td class="details-table-td">传真/打印机</td>
+                <td class="details-table-td">平均2300￥／台</td>
+              </tr>
+              <tr>
+                <td class="details-table-td">投影仪</td>
+                <td class="details-table-td"> 平均2800￥／台</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            • 你也可以点击各项栏目，并根据实际情况输入，不涉及的项目输入“0”
+          </p>
+        </div>
+      </modal>
 
   </div>
 </template>
@@ -65,10 +141,11 @@
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import VueSlideBar from 'vue-slide-bar'
-import { SweetModal, SweetModalTab } from 'sweet-modal-vue'
 import Intro from './Intro.vue'
 import MainPage from './MainPage.vue'
 import MonthlyCostPage from './MonthlyCost.vue'
+import OneTimeCost from './OneTimeCost.vue'
+import ResultPage from './ResultPage.vue'
 
 
 export default {
@@ -76,12 +153,11 @@ export default {
   components: { 
     Treeselect, 
     VueSlideBar, 
-    SweetModal, 
-    SweetModalTab,
     Intro,
     MainPage,
     MonthlyCostPage,
-
+    OneTimeCost,
+    ResultPage,
   },
 
   data () {
@@ -120,15 +196,34 @@ export default {
           ]
         }
       ], 
+      rentTable: {
+        qingdao: {
+          shinan: 2.8,
+          shibei: 2.2,
+          laoshan: 3.2,
+          huangdao: 1.5,
+          licang: 1.8,
+        }
+      },
+      managementTable: {
+        qingdao: {
+          shinan: 6.0,
+          shibei: 2.0,
+          laoshan: 4.5,
+          huangdao: 2.8,
+          licang: 1.8,
+        }
+      },
       location: null,
       isCalced: false,
       members: 0,
       monthlyCost: 0,
-      preCost: 0,
+      oneTimeCost: 0,
       term: 0,
       showAreaSeletion: false,
       cities: ['qingdao', 'shanghai', 'beijing'], 
-      
+      duration:0,
+      costPerPersion: null,
     }
   },
 
@@ -171,6 +266,19 @@ export default {
   },
 
   methods: {
+    showResultPage($e) {
+      this.isCalced = true
+      this.costPerPersion = parseInt($e)
+    },
+    updateDuration($e) {
+      this.duration = $e
+    },
+    showMonthlyCostDetail() {
+      this.$modal.show('details-monthly');
+    },
+    showOneTimeCostDetail() {
+      this.$modal.show('details-one-time-cost');
+    },
     updateArea($e) {
       console.log($e);
       this.area = $e;
@@ -180,23 +288,48 @@ export default {
       this.location = $e;
     },
     updateMembers($e) {
-      this.members = $e;
+      this.members = parseInt($e);
+      console.log(this.members);
     },
-    hidePage(currentPage) {
-      if (currentPage == 'monthly-cost') {
-        this.isShowingMonthly = false;
-      } else if ( currentPage == 'one-time-cost') {
-        this.isShowingOneTime = false;
-      }
+
+    hideMonthlyCostPage($e) {
+      console.log($e)
+      this.monthlyCost = $e
+      this.isShowingMonthly = false
     },
+
+    hideOneTimeCostPage($e) {
+      console.log($e)
+      this.oneTimeCost = $e
+      this.isShowingOneTime = false
+    },
+
     showMonthly() {
-      console.log('going to show monthly');
-      this.isShowingMonthly = true;
-      console.log('isShowingMonthly: ', this.isShowingMonthly);
+      if (this.location !== null && this.members !=0) {
+        this.isShowingMonthly = true;
+      } else {
+        console.log('getting here');
+        this.$toast("请选择区域、人数", {
+          className: ['empty-warning'],
+          horizontalPosition: 'center',
+          verticalPosition: '',
+          duration: 1500,
+        });
+      }
+
     },
     showOneTimeCost() {
-      console.log('going to show one time');
-      this.isShowingOneTime = true;
+      if (this.location !== null && this.members !=0) {
+        this.isShowingOneTime = true;
+      } else {
+        console.log('getting here');
+        this.$toast("请选择区域、人数", {
+          className: ['empty-warning'],
+          horizontalPosition: 'center',
+          verticalPosition: '',
+          duration: 1500,
+        });
+      }
     },
 
     calculate: function() {
@@ -381,6 +514,19 @@ a, a:link, a:hover, a:active, a:visited {
   left: 100%
 }
 
+.slide-from-right-enter-active {
+  transition:  all 1.2s ease;
+}
+
+.slide-from-right-leave-active {
+  transition: all 1.2s ease;
+}
+
+.slide-from-right-enter,.slide-from-right-leave-to {
+  transform: translateX(100%);
+  left: 100%;
+}
+
 @media screen and (min-width: 999px) {
   .calc-wrapper: {
     height: 100%;
@@ -515,18 +661,6 @@ a, a:link, a:hover, a:active, a:visited {
     border-radius: 5px;
   }
 
-  .slide-from-right-enter-active {
-    transition:  all 1.2s ease;
-  }
-
-  .slide-from-right-leave-active {
-    transition: all 1.2s ease;
-  }
-
-  .slide-from-right-enter,.slide-from-right-leave-to {
-    transform: translateX(100%);
-    left: 100%;
-  }
 
   .calc__bar {
     position: absolute;
@@ -637,5 +771,46 @@ a, a:link, a:hover, a:active, a:visited {
   position: absolute;
   top: 10px;
   right: 20px;
+}
+
+.details-modal-title {
+  position: relative;
+  line-height: 54px;
+  background: #4a90e2;
+  padding: 0 20px;
+}
+
+.details-modal-title span {
+  width: 54px;
+  display: inline-block;
+  float: right;
+  color: #fff;
+  text-align: center;
+  margin-right: -20px;
+}
+
+.details-modal-body {
+  padding: 10px 20px 20px;
+  font-size: 12px;
+}
+
+
+.details-modal-body p {
+  color: #2b2b2b;
+  line-height: 16px;
+  padding: 5px 0;
+}
+
+.details-modal-body table {
+  border-collapse: collapse;
+}
+
+.details-modal-body table td{
+  padding: 10px;
+  border: solid 1px #2b2b2b;
+}
+
+.empty-warning {
+  top: 50%;
 }
 </style>

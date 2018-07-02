@@ -28,7 +28,7 @@ export default {
   .intro {
     display: block;
     position: relative;
-    z-index: 11;
+    z-index: 2;
     background: #fff;
     padding: 0;
     overflow: visible;
