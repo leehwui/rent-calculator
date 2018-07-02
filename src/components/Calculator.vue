@@ -7,6 +7,7 @@
          :locations="locations"
          :monthlyCost="monthlyCost"
          :oneTimeCost="oneTimeCost"
+         :area="area"
          @monthly-clicked="showMonthly"
          @onetime-clicked="showOneTimeCost"
          @location-updated="updateLocation"
@@ -42,7 +43,9 @@
       </transition>
 
       <result-page
-        :result="costPerPersion">
+        :result="costPerPersion"
+          @back-to-main="hideResultPage"
+        >
       </result-page>
 
     </div>
@@ -167,7 +170,7 @@ export default {
       showMonthlyPage: false,
       showPreCost: false,
       numMember: 0,
-      area: 0,
+      area: 30,
       locations: [
         {
           id: 'qingdao',
@@ -266,6 +269,9 @@ export default {
   },
 
   methods: {
+    hideResultPage() {
+      this.isCalced = false
+    },
     showResultPage($e) {
       this.isCalced = true
       this.costPerPersion = parseInt($e)
@@ -369,6 +375,10 @@ export default {
 
 .left {
   display: none;
+}
+
+.result {
+  left: 100% !important;
 }
 
 .calc-page {

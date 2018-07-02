@@ -35,6 +35,7 @@
           v-if="location !== null && teamMembers !== null"
           label="办公面积"
           type='slider'
+          :initialVal="area"
           @val-updated="emitAreaUpdated">
         </calculator-cell>
 
@@ -89,6 +90,7 @@ export default {
     locations: Array,
     monthlyCost: Number,
     oneTimeCost: Number,
+    area: Number,
   },
 
   computed: {
@@ -104,7 +106,6 @@ export default {
       isUpdated: false,
       teamMembers: null,
       duration: null,
-      area: 0,
       location: null,
       result: null,
     }
@@ -182,7 +183,78 @@ export default {
 </script>
 <style>
 .main-page {
-  width: 100%
+  width: 100%;
+}
+
+.c-form-group {
+  position: relative;
+  min-height: 51px;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  margin: 0 20px;
+}
+
+.c-form-label {
+  line-height: 50px;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0;
+  text-transform: capitalize;
+}
+
+.c-form-control-wrapper {
+  padding-right: 20px;
+}
+
+.c-form-control {
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: normal;
+  padding: 10px 0;
+  text-align: right;
+  color: #e9901d;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select, input {
+  border: 0;
+  outline: 0;
+  background: 0 0;
+}
+
+.expandable::after {
+  display: block;
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #ddd;
+  border-right: 2px solid #ddd;
+  position: absolute;
+  right: 3px;
+  top: 20px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.expandable.not-opened::after {
+  border-color: #e9901d;
+  -webkit-animation: update-tip 1s cubic-bezier(0.42,.95,.44,.75) infinite;
+  animation: update-tip 1s cubic-bezier(0.42,.95,.44,.75) infinite;
+}
+
+.fake-input {
+  height: 50px;
+  line-height: 50px;
+  text-align: right;
+  color: #e9901d;
+}
+
+.fake-input.ph {
+  color: #999;
 }
 
 .mp-header {

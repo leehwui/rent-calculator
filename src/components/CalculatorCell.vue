@@ -35,7 +35,8 @@
         <vue-slider ref="slider" 
           v-model="val" 
           tooltip="false"
-          @callback="foo"
+          :min="1"
+          @callback="updateValue"
           width="auto">
         </vue-slider>
       </div>
@@ -114,16 +115,13 @@ export default {
   },
 
   methods: {
-    foo($e) {
-      this.$emit('val-updated', $e);
-    },
 
     emitClickEvent() {
       this.$emit('control-clicked');
     },
 
     updateValue($event) {
-      if (this.type == 'district-picker') {
+      if (this.type == 'district-picker' || this.type == 'slider') {
         var data = $event;
       } else {
         var data = $event.target.value;

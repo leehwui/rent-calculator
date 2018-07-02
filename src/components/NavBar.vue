@@ -5,7 +5,8 @@
       <i class="back"></i>
     </a>
     <span>title</span>
-    <a class="nav-bar-btn nav-bar-btn-ok" href="">确认</a>
+    <a class="nav-bar-btn nav-bar-btn-ok" @click="emitOkClicked"
+      href="#">确认</a>
   </div>
 </template>
 
@@ -15,6 +16,9 @@ export default {
   methods: {
     emitBackButtonClicked() {
       this.$emit('back-btn-clicked');
+    },
+    emitOkClicked() {
+      this.$emit('ok-btn-clicked');
     },
   },
 }

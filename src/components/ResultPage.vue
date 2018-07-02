@@ -1,7 +1,7 @@
 <template>
   <div class="page-result">
     <div class="nav-bar-result">
-      <a class="btn-back" href="#">
+      <a class="btn-back" href="#" @click="$emit('back-to-main')">
         <i class="back"></i>
         <span class="btn-back-lg">修改</span>
       </a>

@@ -1,7 +1,8 @@
 <template>
   <div class="monthly-cost-page">
       <nav-bar
-         @back-btn-clicked="emitBackButtonClicked" >
+         @back-btn-clicked="emitBackButtonClicked" 
+         @ok-btn-clicked="emitBackButtonClicked">
       </nav-bar>
 
       <div class="m-c-body">
@@ -221,7 +222,7 @@ export default {
   height: 100%;
   left: 0;
   top:0;
-  z-index: 1;
+  z-index: 5;
   overflow: auto;
   background-color: #f7f9fa;
   -webkit-overflow-scrolling: touch;
