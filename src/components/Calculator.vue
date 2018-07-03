@@ -65,28 +65,28 @@
           <p>
             • 根据你定义的办公室区域及面积，系统会给出相应费用建议供参考，例:
           </p>
-          <p>静安区，8人，100平，则相应费用为 </p>
+          <p>市南，8人，100平，则相应费用为 </p>
           <table>
             <tbody>
               <tr>
                 <td class="details-table-td">月租金</td>
-                <td class="details-table-td">100平*8.8元/平/天*30天＝26,400元</td>
+                <td class="details-table-td">100平*2.8元/平/天*30天＝8,400元</td>
               </tr>
               <tr>
                 <td class="details-table-td">物业费</td>
-                <td class="details-table-td">100平*25元/平＝2,500元</td>
+                <td class="details-table-td">100平*6元/平＝600元</td>
               </tr>
               <tr>
                 <td class="details-table-td">宽带费</td>
-                <td class="details-table-td">企业宽带 50M：500元/月</td>
+                <td class="details-table-td">企业宽带 50M：100元/月</td>
               </tr>
               <tr>
                 <td class="details-table-td">水电费</td>
-                <td class="details-table-td">100平*10元/平/月＝1,000元</td>
+                <td class="details-table-td">100平*8.5元/平/月＝850元</td>
               </tr>
               <tr>
                 <td class="details-table-td">保洁费</td>
-                <td class="details-table-td">3,000元/月</td>
+                <td class="details-table-td">500元/月</td>
               </tr>
             </tbody>
           </table>
@@ -287,26 +287,21 @@ export default {
       this.$modal.show('details-one-time-cost');
     },
     updateArea($e) {
-      console.log($e);
       this.area = $e;
     },
     updateLocation($e) {
-      console.log($e);
       this.location = $e;
     },
     updateMembers($e) {
       this.members = parseInt($e);
-      console.log(this.members);
     },
 
     hideMonthlyCostPage($e) {
-      console.log($e)
       this.monthlyCost = $e
       this.isShowingMonthly = false
     },
 
     hideOneTimeCostPage($e) {
-      console.log($e)
       this.oneTimeCost = $e
       this.isShowingOneTime = false
     },
@@ -315,7 +310,6 @@ export default {
       if (this.location !== null && this.members !=0) {
         this.isShowingMonthly = true;
       } else {
-        console.log('getting here');
         this.$toast("请选择区域、人数", {
           className: ['empty-warning'],
           horizontalPosition: 'center',
@@ -329,7 +323,6 @@ export default {
       if (this.location !== null && this.members !=0) {
         this.isShowingOneTime = true;
       } else {
-        console.log('getting here');
         this.$toast("请选择区域、人数", {
           className: ['empty-warning'],
           horizontalPosition: 'center',
@@ -344,7 +337,6 @@ export default {
     },
     onAreaClick: function() {
       this.showAreaSeletion = !this.showAreaSeletion;
-      console.log('on select Area click...');
     },
 
     showDetailModal: function() {
