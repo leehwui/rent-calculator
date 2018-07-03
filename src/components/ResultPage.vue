@@ -25,10 +25,36 @@
       <div class="result-carousal">
         <swiper
           ref="photoSwiper" :options="swiperOptions">
-          <swiper-slide><div class="carousal-img-container"><img src="../assets/slide1.png" alt=""></div></swiper-slide>
-          <swiper-slide><div class="carousal-img-container"><img src="../assets/slide2.png" alt=""></div></swiper-slide>
-          <swiper-slide><div class="carousal-img-container"><img src="../assets/slide3.png" alt=""></div></swiper-slide>
-          <swiper-slide><div class="carousal-img-container"><img src="../assets/slide4.png" alt=""></div></swiper-slide>
+          <swiper-slide>
+            <div class="carousal-img-container">
+              <img src="../assets/slide1.png" alt="">
+            </div>
+            <p>认真工作也是热爱生活的一部分，高颜值多功能办公室，让你的工作更有效率。</p>
+          </swiper-slide>
+          <swiper-slide>
+            <div class="carousal-img-container">
+              <img src="../assets/slide2.png" alt="">
+            </div>
+            <p>
+              每月精彩纷呈社区活动，社交、人脉、资源拓展一个都不能少。
+            </p>
+          </swiper-slide>
+          <swiper-slide>
+            <div class="carousal-img-container">
+              <img src="../assets/slide3.png" alt="">
+            </div>
+            <p>
+            全青岛覆盖多区域联动的办公空间
+            </p>
+          </swiper-slide>
+          <swiper-slide>
+            <div class="carousal-img-container">
+              <img src="../assets/slide4.png" alt="">
+            </div>
+            <p>
+            拒绝传统高成本租房模式，一键全包，轻投入获得最高性价比。
+            </p>
+          </swiper-slide>
         </swiper>
       </div>
       <div class="rst-btm-mobile">
