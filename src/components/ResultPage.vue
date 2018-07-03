@@ -60,7 +60,7 @@
       <div class="rst-btm-mobile">
         <div class="p1">现在预约参观，即可享受优惠</div>
         <div class="p3">咨询热线 xxxxxxx</div>
-        <div class="p4"> <a href="#"> > 了解临客产品及价格 </a></div>
+        <div class="p4"> <a href="#"> > 了解邻客产品及价格 </a></div>
       </div>
       <div class="rst-btm-pc">
         <div class="rst-btm-pc-container">
@@ -70,7 +70,7 @@
           </div>
           <div class="rst-btm-right">
             <div class="p2"><a class="btn" href="#">预约参观</a></div>
-            <div class="p4"><a href="#">> 了解临客产品及价格</a></div>
+            <div class="p4"><a href="#">> 了解邻客产品及价格</a></div>
           </div>
         </div>
       </div>
