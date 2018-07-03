@@ -344,4 +344,11 @@ export default {
   color: #007BFF;
 }
 
+.vue-scroll-picker-layer .top {
+  height: 43% !important;
+}
+
+.vue-scroll-picker-layer .bottom {
+  height: 44% !important;
+}
 </style>
