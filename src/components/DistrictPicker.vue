@@ -322,6 +322,7 @@ export default {
   display: block;
 }
 
+
 @media screen and (min-width: 999px) {
   .picker-control {
     height: 50px;
@@ -337,4 +338,10 @@ export default {
     display: none;
   }
 }
+</style>
+<style>
+.vue-scroll-picker-item.-selected {
+  color: #007BFF;
+}
+
 </style>
