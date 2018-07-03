@@ -128,7 +128,7 @@ export default {
     if (typeof this.location.city != 'undefined'
       && typeof this.location.district != 'undefined') {
         rent = this.rentTable[this.location.city][this.location.district]
-        * this.area
+        * this.area * 30
       }
 
     this.rent = Math.ceil(rent.toFixed(2))

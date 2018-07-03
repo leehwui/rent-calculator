@@ -91,6 +91,7 @@ export default {
     monthlyCost: Number,
     oneTimeCost: Number,
     area: Number,
+    members: Number,
   },
 
   computed: {
@@ -117,11 +118,9 @@ export default {
         return false;
       }
 
-      this.result = Math.ceil(this.oneTimeCost/this.duration) 
-      + this.monthlyCost;
+      this.result = Math.ceil((this.oneTimeCost/this.duration 
+      + this.monthlyCost)/this.members);
       this.$emit('calculated', this.result);
-
-      console.log(this.result);
     },
 
     emitOneTimeCostClicked() {
@@ -149,15 +148,9 @@ export default {
     emitMonthlyClickedEvent() {
       this.$emit('monthly-clicked');
     },
-    navigateToMonthlyCost() {
-      console.log("naviagting to monthly cost page....");
-    },
-    bar() {
-    
-    },
+
     updateTeamMembers($e) {
       this.teamMembers = $e;
-      console.log(this.teamMembers);
     },
 
     updateLoaction($e) {
@@ -168,9 +161,6 @@ export default {
       this.isUpdated = !this.isUpdated;
     },
 
-    foo(val) {
-      console.log('val changed to: ', val);
-    },
     emitMonthly: function() {
       this.$emit('monthly-clicked');
     },

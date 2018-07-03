@@ -8,6 +8,7 @@
          :monthlyCost="monthlyCost"
          :oneTimeCost="oneTimeCost"
          :area="area"
+         :members="members"
          @monthly-clicked="showMonthly"
          @onetime-clicked="showOneTimeCost"
          @location-updated="updateLocation"

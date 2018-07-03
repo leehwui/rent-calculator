@@ -141,7 +141,7 @@ export default {
   border-bottom: 1px solid rgba(0,0,0,.1);
   margin: 0 20px;
 }
-
+/*
 .c-cell:hover::before {
   position: absolute;
   display: block;
@@ -153,6 +153,7 @@ export default {
   width: 6px;
   background: #ffb600;
 }
+*/
 
 
 .c-cell-expandable::after {

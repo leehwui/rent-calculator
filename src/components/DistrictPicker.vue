@@ -37,10 +37,10 @@
       <div class="picker-bg" v-if="shouldShowScrollPicker">
         <div class="dist-picker">
           <div class="dist-picker-btn-box">
-            <button class="picker-btn picker-btn-cancel"
-              @click="shouldShowScrollPicker = 'false'">取消</button>
-            <button class="picker-btn picker-btn-ok"
-              @click="confirmSelection">确定</button>
+            <div class="picker-btn picker-btn-cancel"
+              @click="cancelSelection">取消</div>
+            <div class="picker-btn picker-btn-ok"
+              @click="confirmSelection">确定</div>
           </div>
 
           <div class="dist-picker-list">
@@ -166,6 +166,9 @@ export default {
   },
 
   methods: {
+    cancelSelection() {
+      this.shouldShowScrollPicker = false;
+    },
     showDistrictPicker() {
       this.shouldShowScrollPicker = true;
     },
@@ -254,6 +257,7 @@ export default {
 .dist-picker-btn-box {
   position: absolute;
   height: 50px;
+  line-height:50px;
   width: 100%;
   background: #ddd;
 }
