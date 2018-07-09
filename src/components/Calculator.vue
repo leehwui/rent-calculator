@@ -287,7 +287,12 @@ export default {
       this.$modal.show('details-one-time-cost');
     },
     updateArea($e) {
-      this.area = $e;
+      this.area = parseInt($e);
+      this.resetCost()
+    },
+    resetCost() {
+      this.monthlyCost = 0
+      this.oneTimeCost = 0
     },
     updateLocation($e) {
       this.location = $e;
