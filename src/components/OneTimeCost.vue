@@ -29,6 +29,12 @@
               :initialVal="printerCost"
               @val-updated="updatePrinterCost"
             ></calculator-cell>
+          <calculator-cell
+              label="投影仪"
+              type="input"
+              :initialVal="projectorCost"
+              @val-updated="updateProjectorCost"
+            ></calculator-cell>
         </div>
 
         <div class="result-o-t-c">
@@ -104,6 +110,14 @@ export default {
         this.printerCost = 0
       } else {
         this.printerCost = parseInt($e)
+      }
+    },
+
+    updateProjectorCost($e) {
+      if (isNaN(parseInt($e))) {
+        this.projectorCost = 0
+      } else {
+        this.projectorCost = parseInt($e)
       }
     },
 
