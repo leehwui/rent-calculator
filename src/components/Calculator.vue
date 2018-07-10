@@ -50,6 +50,7 @@
       </result-page>
 
     </div>
+    
       <modal name="details-monthly" 
              :adaptive="true"
              height="auto"
@@ -286,19 +287,21 @@ export default {
     showOneTimeCostDetail() {
       this.$modal.show('details-one-time-cost');
     },
-    updateArea($e) {
-      this.area = parseInt($e);
-      this.resetCost()
-    },
     resetCost() {
       this.monthlyCost = 0
       this.oneTimeCost = 0
     },
+    updateArea($e) {
+      this.area = parseInt($e);
+      this.resetCost()
+    },
     updateLocation($e) {
       this.location = $e;
+      this.resetCost()
     },
     updateMembers($e) {
       this.members = parseInt($e);
+      this.resetCost()
     },
 
     hideMonthlyCostPage($e) {

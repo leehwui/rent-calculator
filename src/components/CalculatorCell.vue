@@ -102,7 +102,6 @@ export default {
   },
 
   created() {
-    console.log(typeof this.initialVal)
     if (this.initialVal != 0) {
       this.val = this.initialVal
     }
@@ -116,12 +115,16 @@ export default {
 
   methods: {
 
+    refreshSlider() {
+      this.$refs.slider.refresh()
+    },
     emitClickEvent() {
       this.$emit('control-clicked');
     },
 
     updateValue($event) {
-      if (this.type == 'district-picker' || this.type == 'slider') {
+      if (this.type == 'district-picker' || 
+        (this.type == 'slider' && typeof $event.target == 'undefined')) {
         var data = $event;
       } else {
         var data = $event.target.value;
