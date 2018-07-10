@@ -1,6 +1,7 @@
 <template>
   <div class="page-one-time-cost">
     <nav-bar
+       title="前期投入"
        @back-btn-clicked="emitBackButtonClicked" 
        @ok-btn-clicked="emitBackButtonClicked">
     </nav-bar>
@@ -201,7 +202,7 @@ export default {
     height: 100%;
     width: 50%;
     left: 50%;
-    background: #ffbe00; 
+    background: #45af5e; 
     z-index:10;
   }
 

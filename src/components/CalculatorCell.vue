@@ -35,7 +35,8 @@
         <vue-slider ref="slider" 
           v-model="val" 
           tooltip="false"
-          :min="1"
+          :min="0"
+          :max="1000"
           @callback="updateValue"
           width="auto">
         </vue-slider>

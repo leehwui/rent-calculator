@@ -226,7 +226,7 @@ export default {
 }
 
 .district-item.active {
-  color: #ffbe00;
+  color: #45af5e;
 }
 
 .district-list {
@@ -307,11 +307,11 @@ export default {
 }
 
 .city-item.active {
-  border-bottom: 2px solid #ffbe00;
+  border-bottom: 2px solid #45af5e;
 }
 
 .city-item:hover {
-  color: #ffbe00;
+  color: #45af5e;
 }
 
 .picker-lg {

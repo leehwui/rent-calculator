@@ -587,13 +587,13 @@ a, a:link, a:hover, a:active, a:visited {
   .main {
     overflow: visible;
     z-index: 10;
-    background: #ffbe00;
+    background: #45af5e;
     left: 50%;
   }
 
   .pre-cost, .monthly-cost {
     z-index: 11;
-    background: #ffbe00;
+    background: #45af5e;
     left: 50%;
   }
 

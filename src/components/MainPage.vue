@@ -315,7 +315,7 @@ select, input {
     height: 100%;
     width: 50%;
     left: 50%;
-    background: #ffbe00; 
+    background: #45af5e; 
     z-index:10;
   }
 
@@ -324,7 +324,7 @@ select, input {
     content: '';
     width: 15px;
     height: 15px;
-    background: #ffbe00;
+    background: #45af5e;
     position: absolute;
     right: -8px;
     top: 50%;

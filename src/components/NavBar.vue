@@ -4,7 +4,7 @@
       @click="emitBackButtonClicked">
       <i class="back"></i>
     </a>
-    <span>title</span>
+    <span>{{ title }}</span>
     <a class="nav-bar-btn nav-bar-btn-ok" @click="emitOkClicked"
       href="#">确认</a>
   </div>
@@ -13,6 +13,11 @@
 <script>
 export default {
   name: 'NavBar',
+
+  props: {
+   title: String,
+  },
+
   methods: {
     emitBackButtonClicked() {
       this.$emit('back-btn-clicked');
