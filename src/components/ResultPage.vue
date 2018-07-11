@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="result-header-2">
-        人均 ¥1,800 如何租到颜值高且地段好的办公室？
+        人均 ¥800 如何租到颜值高且地段好的办公室？
       </div>
       <div class="result-carousal">
         <swiper
