@@ -79,7 +79,7 @@
               </tr>
               <tr>
                 <td class="details-table-td">宽带费</td>
-                <td class="details-table-td">企业宽带 50M：除以面积取整*100元/月
+                <td class="details-table-td">企业宽带 50M：除以面积向上取整*100元/月
                 = 100元</td>
               </tr>
               <tr>
