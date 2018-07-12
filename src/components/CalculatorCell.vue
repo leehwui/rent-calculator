@@ -32,14 +32,8 @@
                                   v-model="val"
       @keyup="updateValue">
       <div class="slider-wrapper">
-        <vue-slider ref="slider" 
-          v-model="val" 
-          tooltip="false"
-          :min="0"
-          :max="1000"
-          @callback="updateValue"
-          width="auto">
-        </vue-slider>
+        <input class="area-slider" type="range" min="0" max="1000" v-model="val"
+        @input="updateValue" />
       </div>
     </div>
   </div>
@@ -116,16 +110,14 @@ export default {
 
   methods: {
 
-    refreshSlider() {
-      this.$refs.slider.refresh()
-    },
     emitClickEvent() {
       this.$emit('control-clicked');
     },
 
     updateValue($event) {
-      if (this.type == 'district-picker' || 
-        (this.type == 'slider' && typeof $event.target == 'undefined')) {
+      if (this.type == 'district-picker') {
+        //(this.type == 'slider' && typeof $event.target == 'undefined')) {
+
         var data = $event;
       } else {
         var data = $event.target.value;
@@ -352,6 +344,12 @@ select,input {
     display: none;
   }
 }
+
+.area-slider {
+  width: 90%;
+  height: 30px;
+}
+
 
 @-webkit-keyframes update-tip{
   0%{-webkit-transform:translateX(0) rotate(45deg);transform:translateX(0) rotate(45deg)}

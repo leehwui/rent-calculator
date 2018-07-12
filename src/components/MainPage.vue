@@ -119,13 +119,10 @@ export default {
         return false;
       }
 
-      console.log("area: ", this.area);
       this.result = Math.ceil((this.oneTimeCost/this.duration 
         + this.monthlyCost)/this.members);
 
       this.$emit('calculated', this.result);
-      this.$refs.area.$refs.slider.refresh()
-      console.log('this.$refs.area: ' , this.$refs.area);
     },
 
     emitOneTimeCostClicked() {
