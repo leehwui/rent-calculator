@@ -181,7 +181,6 @@ export default {
       } else {
         this.cleaningFee = parseInt($e)
       }
-      console.log(this.cleaningFee)
     },
     updateElectricity($e) {
       this.electricity = parseInt($e)

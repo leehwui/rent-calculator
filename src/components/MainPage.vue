@@ -156,7 +156,6 @@ export default {
     },
 
     updateLoaction($e) {
-      console.log($e);
       this.location = $e;
     },
     changeState() {

@@ -83,7 +83,6 @@ export default {
   },
 
   created() {
-    console.log(this.area);
     this.renovationCost = this.area * 600
     this.furnitureCost = this.members * 700
   },

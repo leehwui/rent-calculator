@@ -161,7 +161,6 @@ export default {
   },
 
   created() {
-    console.log(this.options);
     this.selectedCity = this.options[0];
   },
 
